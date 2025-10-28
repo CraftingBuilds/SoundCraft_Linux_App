@@ -173,6 +173,15 @@ class ConsoleBridge:
         if var.default is not None:
             print(f"[Agent] {var.name} → default {var.default}")
             return var.default
+
+        if var.options:
+            choice = var.options[0]
+            print(
+                "[Agent] "
+                f"{var.name} has no default; selecting first option '{choice.label}' ({choice.value})."
+            )
+            return choice.value
+
         print(f"[Agent] {var.name} has no default; skipping.")
         return None
 
