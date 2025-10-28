@@ -1,18 +1,22 @@
-\
-"""
-Protocols format + loader (YAML). Defines ritual steps and default parameters.
-"""
+"""Utilities for loading protocol definitions."""
 from __future__ import annotations
-from dataclasses import dataclass, field
-from typing import Any
-import yaml
 
-@dataclass
-class Protocol:
-    name: str
-    steps: list[dict[str, Any]] = field(default_factory=list)
+from pathlib import Path
+from typing import Dict
 
-def load_protocol(path: str) -> Protocol:
-    with open(path, "r") as f:
-        data = yaml.safe_load(f) or {}
-    return Protocol(name=data.get("name","Unnamed Protocol"), steps=data.get("steps", []))
+from .ai_agent import Protocol, load_protocol_file
+
+
+def load_protocol(path: str | Path) -> Protocol:
+    """Load a single protocol YAML file."""
+    return load_protocol_file(path)
+
+
+def load_protocols(directory: str | Path) -> Dict[str, Protocol]:
+    """Convenience proxy to :func:`soundcraft.core.ai_agent.load_protocols`."""
+    from .ai_agent import load_protocols as _load_all
+
+    return _load_all(directory)
+
+
+__all__ = ["Protocol", "load_protocol", "load_protocols"]

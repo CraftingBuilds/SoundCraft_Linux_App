@@ -1,4 +1,3 @@
-\
 """
 Minimal MIDI export using mido.
 """
