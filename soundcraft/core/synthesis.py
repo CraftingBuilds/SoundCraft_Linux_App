@@ -1,4 +1,3 @@
-\
 """
 Basic synthesis: sine tones and binaural beat writer.
 """

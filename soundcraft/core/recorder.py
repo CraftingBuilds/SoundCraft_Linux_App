@@ -1,4 +1,3 @@
-\
 """
 Voice recorder to WAV using sounddevice + soundfile.
 """

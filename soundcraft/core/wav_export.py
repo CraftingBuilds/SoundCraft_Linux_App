@@ -1,4 +1,3 @@
-\
 """
 Thin wrapper (kept for symmetry/extension).
 """
