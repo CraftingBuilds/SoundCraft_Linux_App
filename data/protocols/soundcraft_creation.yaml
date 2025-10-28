@@ -1,0 +1,20 @@
+# data/protocols/soundcraft_creation.yaml
+id: soundcraft_creation
+title: SoundCraft Creation Protocol
+version: v1.0
+steps:
+  - kind: say
+    text: "Initiating SoundCraft Creation Protocol. Proceed."
+
+  - kind: call
+    call: soundcraft.core.smith_equivalence.generate_patch
+    args:
+      note: "A4"
+      a4_hz: 440.0
+      harmonic: "3/2"
+      binaural_offset_hz: 7.0
+      duration_beats: 8
+      bpm: 120
+      metadata:
+        intent: "healing / clarity"
+        engine: "SoundCraft v1"
