@@ -93,6 +93,7 @@ def generate_patch(
     duration_beats: float = 4.0,
     bpm: float = 120.0,
     metadata: Optional[Dict[str, Any]] = None,
+    **protocol_context: Any,
 ) -> Dict[str, Any]:
     """
     Create a simple synthesis 'patch' dict that your synthesis layer can consume.
@@ -106,6 +107,10 @@ def generate_patch(
         duration_beats: musical length in beats.
         bpm: tempo used to convert beats -> seconds.
         metadata: free-form info to carry forward.
+
+    Additional keyword arguments are accepted so protocol runners can pass
+    extended context (e.g., "tempo", "key_signature"). These values are stored
+    under ``metadata['protocol_context']`` for downstream tooling.
 
     Returns:
         Dict with fields safe for downstream synthesis/MIDI/WAV export.
@@ -131,6 +136,15 @@ def generate_patch(
     # Convert beats to seconds
     seconds = (duration_beats / max(bpm, 1e-6)) * 60.0
 
+    extra_meta: Dict[str, Any] = dict(metadata or {})
+    if protocol_context:
+        context = dict(protocol_context)
+        existing = extra_meta.get("protocol_context")
+        if isinstance(existing, dict):
+            existing.update(context)
+            context = existing
+        extra_meta["protocol_context"] = context
+
     patch = {
         "patch_id": f"patch_{abs(hash((note, base_hz, harmonic, binaural_offset_hz, duration_beats, bpm)))% (10**10)}",
         "note": note,
@@ -144,7 +158,7 @@ def generate_patch(
         "voices": [
             {"kind": "sine", "hz": f_main, "gain": 0.9}
         ],
-        "metadata": metadata or {},
+        "metadata": extra_meta,
     }
 
     # If binaural is requested, add a second voice
