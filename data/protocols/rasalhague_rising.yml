@@ -1,0 +1,27 @@
+name: Rasalhague Rising v1
+steps:
+  - action: "smith_map"
+    params:
+      cycle_rate: 1.002737909 # example: sidereal-day based seed (placeholder)
+  - action: "synthesis_binaural"
+    params:
+      carrier_from: "smith_map"   # use last smith_map Hz
+      beat_hz: 7.0
+      duration_sec: 180
+      export: "rasalhague_binaural.wav"
+  - action: "tts"
+    params:
+      text: "Rasalhague, healer of the serpent, open this path."
+      export: "rasalhague_invocation.wav"
+  - action: "record_voice"
+    params:
+      duration_sec: 20
+      export: "spoken_spirit_rasalhague.wav"
+  - action: "midi_export"
+    params:
+      notes:
+        - [60, 80, 480]
+        - [64, 80, 480]
+        - [67, 80, 960]
+      bpm: 84
+      export: "rasalhague_theme.mid"

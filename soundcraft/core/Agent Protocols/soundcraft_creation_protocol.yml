@@ -1,0 +1,289 @@
+id: soundcraft.creation.protocol
+title: SoundCraft Creation Protocol
+version: "2.0"
+status: Living Draft
+category: Ritual Communication & Response Framework
+
+description: >
+  Amp autonomously recognizes creative or production intent and guides the Operator
+  through SoundCraft Creation. This version adds expanded musical, celestial, emotional,
+  and chromatic options plus the ability to temporarily or permanently add new items.
+
+variables:
+  # --- Tier I: Essential Variables ---
+  - name: tempo
+    type: number
+    prompt: "Define the heartbeat of your creation (BPM)."
+    required: true
+    default: 72
+    options:
+      - {label: "Slow (Introspective)", value: 63, rationale: "Slows the mind for deep inner work."}
+      - {label: "Heart-Aligned", value: 72, rationale: "Resonates with resting human heart rhythm."}
+      - {label: "Vital Pulse", value: 108, rationale: "Amplifies vitality and movement."}
+
+  - name: key_signature
+    type: choice
+    prompt: "Select your tonal root — each key carries distinct energy."
+    required: true
+    default: "A (432 Hz)"
+    options:
+      - {label: "C / B♯", value: "C"}
+      - {label: "C♯ / D♭", value: "C#"}
+      - {label: "D", value: "D"}
+      - {label: "D♯ / E♭", value: "D#"}
+      - {label: "E / F♭", value: "E"}
+      - {label: "F / E♯", value: "F"}
+      - {label: "F♯ / G♭", value: "F#"}
+      - {label: "G", value: "G"}
+      - {label: "G♯ / A♭", value: "G#"}
+      - {label: "A (432 Hz)", value: "A432"}
+      - {label: "A (440 Hz)", value: "A440"}
+      - {label: "A♯ / B♭", value: "A#"}
+      - {label: "B / C♭", value: "B"}
+
+  - name: scale_type
+    type: choice
+    prompt: "Choose harmonic coloration."
+    required: true
+    default: "Major"
+    options:
+      - {label: "Major", value: "major", rationale: "Radiant; expansive and positive."}
+      - {label: "Minor", value: "minor", rationale: "Introspective; deep emotional resonance."}
+      - {label: "Harmonic Minor", value: "harmonic_minor", rationale: "Mystical, ancient, transformative."}
+      - {label: "Melodic Minor", value: "melodic_minor", rationale: "Ascending hope and lyrical flow."}
+      - {label: "Dorian Pentatonic", value: "dorian_pentatonic"}
+      - {label: "Phrygian Dominant", value: "phrygian_dominant"}
+      - {label: "Whole Tone", value: "whole_tone"}
+      - {label: "Augmented", value: "augmented"}
+      - {label: "Diminished (Octatonic)", value: "diminished"}
+      - {label: "Chromatic", value: "chromatic"}
+      - {label: "Blues", value: "blues"}
+      - {label: "Temporary Custom Scale", value: "__TEMP__"}
+      - {label: "Add New Scale Type", value: "__ADD__"}
+
+  - name: scale_mode
+    type: choice
+    prompt: "Select modal character."
+    required: true
+    default: "Ionian"
+    options:
+      - {label: "Ionian (Major)", value: "ionian"}
+      - {label: "Dorian", value: "dorian"}
+      - {label: "Phrygian", value: "phrygian"}
+      - {label: "Lydian", value: "lydian"}
+      - {label: "Mixolydian", value: "mixolydian"}
+      - {label: "Aeolian (Natural Minor)", value: "aeolian"}
+      - {label: "Locrian", value: "locrian"}
+      - {label: "Lydian Augmented", value: "lydian_augmented"}
+      - {label: "Lydian Dominant", value: "lydian_dominant"}
+      - {label: "Super Locrian (Altered)", value: "super_locrian"}
+      - {label: "Neapolitan Minor", value: "neapolitan_minor"}
+      - {label: "Neapolitan Major", value: "neapolitan_major"}
+      - {label: "Hungarian Minor", value: "hungarian_minor"}
+      - {label: "Persian", value: "persian"}
+      - {label: "Byzantine", value: "byzantine"}
+      - {label: "Temporary Mode", value: "__TEMP__"}
+      - {label: "Add New Mode", value: "__ADD__"}
+
+  - name: output_length
+    type: text
+    prompt: "Define the vessel of time (duration or bars)."
+    required: true
+    default: "3m33s"
+
+  - name: instrumentation
+    type: choice
+    prompt: "Choose the voice through which your sound will speak."
+    required: true
+    options:
+      - {label: "Sine Drone", value: "sine_drone"}
+      - {label: "Crystal Pad", value: "crystal_pad"}
+      - {label: "Choir", value: "choir"}
+      - {label: "Chime", value: "chime"}
+      - {label: "Analog Bass", value: "analog_bass"}
+
+  # --- Tier II: Energetic Variables ---
+  - name: intent_polarity
+    type: choice
+    prompt: "Select the energetic direction."
+    required: false
+    options:
+      - {label: "Healing", value: "healing"}
+      - {label: "Protection", value: "protection"}
+      - {label: "Expansion", value: "expansion"}
+      - {label: "Purification", value: "purification"}
+      - {label: "Illumination", value: "illumination"}
+
+  - name: celestial_alignment
+    type: choice
+    prompt: "Choose a celestial or stellar current."
+    required: false
+    options:
+      - {label: "Rasalhague", value: "rasalhague"}
+      - {label: "Venus", value: "venus"}
+      - {label: "Full Moon in Pisces", value: "full_moon_pisces"}
+      - {label: "Galactic Center", value: "galactic_center"}
+      - {label: "Sirius", value: "sirius"}
+      - {label: "Arcturus", value: "arcturus"}
+      - {label: "Aldebaran", value: "aldebaran"}
+      - {label: "Spica", value: "spica"}
+      - {label: "Antares", value: "antares"}
+      - {label: "Temporary Alignment", value: "__TEMP__"}
+      - {label: "Add New Alignment (Persist)", value: "__ADD__"}
+
+  - name: elemental_correspondence
+    type: choice
+    prompt: "Elemental anchor for this sound."
+    required: false
+    options:
+      - {label: "Fire", value: "fire"}
+      - {label: "Water", value: "water"}
+      - {label: "Air", value: "air"}
+      - {label: "Earth", value: "earth"}
+      - {label: "Ether", value: "ether"}
+
+  # --- Tier III: Spatial & Emotional Variables ---
+  - name: emotional_archetype
+    type: choice
+    prompt: "Select emotional archetype."
+    required: false
+    options:
+      - {label: "Joy", value: "joy"}
+      - {label: "Sorrow", value: "sorrow"}
+      - {label: "Rebirth", value: "rebirth"}
+      - {label: "Forgiveness", value: "forgiveness"}
+      - {label: "Transcendence", value: "transcendence"}
+      - {label: "Courage", value: "courage"}
+      - {label: "Serenity", value: "serenity"}
+      - {label: "Elation", value: "elation"}
+      - {label: "Melancholy", value: "melancholy"}
+      - {label: "Empowerment", value: "empowerment"}
+      - {label: "Compassion", value: "compassion"}
+      - {label: "Awe", value: "awe"}
+      - {label: "Temporary Archetype", value: "__TEMP__"}
+      - {label: "Add New Archetype (Persist)", value: "__ADD__"}
+
+  - name: color_resonance
+    type: choice
+    prompt: "Choose color or vibrational hue."
+    required: false
+    options:
+      - {label: "Indigo", value: "indigo"}
+      - {label: "Gold", value: "gold"}
+      - {label: "Emerald", value: "emerald"}
+      - {label: "Silver", value: "silver"}
+      - {label: "Crimson", value: "crimson"}
+      - {label: "Violet", value: "violet"}
+      - {label: "Azure", value: "azure"}
+      - {label: "Amber", value: "amber"}
+      - {label: "Pearl White", value: "pearl_white"}
+      - {label: "Obsidian Black", value: "obsidian_black"}
+      - {label: "Temporary Color", value: "__TEMP__"}
+      - {label: "Add New Color (Persist)", value: "__ADD__"}
+
+  - name: mantra
+    type: text
+    prompt: "Enter a mantra or seed phrase."
+    required: false
+    default: "Om So-Ham"
+
+  # --- Tier IV: Structural Variables ---
+  - name: form_structure
+    type: choice
+    prompt: "Choose compositional form."
+    required: false
+    options:
+      - {label: "AABA", value: "AABA"}
+      - {label: "AB", value: "AB"}
+      - {label: "Ritual Loop", value: "ritual_loop"}
+      - {label: "Freeform", value: "freeform"}
+      - {label: "Cyclic", value: "cyclic"}
+
+  # --- Tier V: Output & Metadata ---
+  - name: output_type
+    type: choice
+    prompt: "Select output type."
+    required: true
+    default: "WAV"
+    options:
+      - {label: "WAV", value: "wav"}
+      - {label: "MIDI", value: "midi"}
+      - {label: "LightCraft Sync", value: "lightcraft"}
+
+  - name: session_name
+    type: text
+    prompt: "Session name or title."
+    required: true
+    default: "Rasalhague Rising"
+
+  # --- Tier VI: Ritual Control ---
+  - name: interactive_mode
+    type: choice
+    prompt: "Define co-creation style."
+    required: false
+    options:
+      - {label: "Guided", value: "guided"}
+      - {label: "Autonomous", value: "autonomous"}
+      - {label: "Collaborative", value: "collaborative"}
+
+steps:
+  - kind: note
+    text: "Amp: Initiating SoundCraft Creation Protocol. Proceed."
+
+  - kind: ask
+    ref: tempo
+  - kind: ask
+    ref: key_signature
+  - kind: ask
+    ref: scale_type
+  - kind: ask
+    ref: scale_mode
+  - kind: ask
+    ref: instrumentation
+  - kind: ask
+    ref: output_length
+  - kind: confirm
+    text: "Tier I complete — extend into elemental, spatial, or structural alignment?"
+
+  - kind: ask
+    ref: intent_polarity
+  - kind: ask
+    ref: celestial_alignment
+  - kind: ask
+    ref: elemental_correspondence
+  - kind: ask
+    ref: emotional_archetype
+  - kind: ask
+    ref: color_resonance
+  - kind: ask
+    ref: mantra
+  - kind: ask
+    ref: form_structure
+  - kind: ask
+    ref: output_type
+  - kind: ask
+    ref: session_name
+
+  - kind: confirm
+    text: "All SoundCraft variables defined. Confirm to manifest sound?"
+
+  - kind: call
+    call: soundcraft.core.smith_equivalence.generate_patch
+    args:
+      tempo: "${tempo}"
+      key: "${key_signature}"
+      scale: "${scale_type}"
+      mode: "${scale_mode}"
+      instrument: "${instrumentation}"
+      length: "${output_length}"
+      intent: "${intent_polarity}"
+      celestial: "${celestial_alignment}"
+      element: "${elemental_correspondence}"
+      emotion: "${emotional_archetype}"
+      color: "${color_resonance}"
+      mantra: "${mantra}"
+      form: "${form_structure}"
+      output: "${output_type}"
+      session: "${session_name}"
+
+  - kind: finalize
